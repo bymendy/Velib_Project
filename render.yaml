@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: velib-dashboard
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn interface.app:app
+    rootDir: .

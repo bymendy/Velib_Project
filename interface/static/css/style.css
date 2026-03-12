@@ -1,0 +1,686 @@
+/* ============================================================
+   VÉLIB DASHBOARD — style.css
+   Thème : dark professionnel · accents vert Vélib
+   Polices : Syne (titres) + DM Sans (corps)
+   ============================================================ */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --green:      #00C96B;
+    --green-dim:  #009E53;
+    --dark:       #0B0F0E;
+    --surface:    #111714;
+    --card:       #171D1A;
+    --card-hover: #1C2520;
+    --border:     rgba(0, 201, 107, .15);
+    --text:       #E8F0EC;
+    --muted:      #7A9186;
+    --accent:     #C8FF6A;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ── Background grid ── */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 68px;
+    background: rgba(11, 15, 14, .85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: -.02em;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.nav-logo span { color: var(--green); }
+
+.nav-links {
+    display: flex;
+    gap: .25rem;
+    list-style: none;
+}
+
+.nav-links a {
+    font-size: .85rem;
+    font-weight: 500;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: .5rem 1rem;
+    border-radius: 6px;
+    transition: color .2s, background .2s;
+}
+
+.nav-links a:hover {
+    color: var(--text);
+    background: rgba(0, 201, 107, .1);
+}
+
+.nav-links a.active {
+    color: var(--green);
+    background: rgba(0, 201, 107, .08);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--green);
+    border: 1px solid var(--border);
+    background: rgba(0, 201, 107, .06);
+    padding: .35rem .9rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    width: fit-content;
+    animation: fadeUp .6s ease both;
+}
+
+.hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s ease infinite;
+}
+
+.hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1;
+    letter-spacing: -.04em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp .7s .1s ease both;
+}
+
+.hero h1 em {
+    font-style: normal;
+    color: var(--green);
+}
+
+.hero p {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    animation: fadeUp .7s .2s ease both;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp .7s .3s ease both;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .9rem;
+    font-weight: 500;
+    padding: .85rem 2rem;
+    border-radius: 8px;
+    transition: all .2s;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--green);
+    color: #0B0F0E;
+}
+
+.btn-primary:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 201, 107, .35);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, .04);
+    border-color: rgba(0, 201, 107, .4);
+    transform: translateY(-2px);
+}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 3rem 6rem;
+}
+
+.section-label {
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    letter-spacing: -.03em;
+    margin-bottom: 3rem;
+    color: var(--text);
+}
+
+/* ============================================================
+   FEATURES GRID (index)
+   ============================================================ */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.feature-card {
+    background: var(--card);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: background .2s;
+    text-decoration: none;
+    color: inherit;
+}
+
+.feature-card:hover { background: var(--card-hover); }
+
+.feature-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: rgba(0, 201, 107, .1);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+.feature-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: -.02em;
+}
+
+.feature-card p {
+    font-size: .9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    flex: 1;
+}
+
+.feature-link {
+    font-size: .8rem;
+    font-weight: 500;
+    color: var(--green);
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    margin-top: .5rem;
+}
+
+.feature-link::after {
+    content: '→';
+    transition: transform .2s;
+}
+
+.feature-card:hover .feature-link::after {
+    transform: translateX(4px);
+}
+
+/* ============================================================
+   PIPELINE (index)
+   ============================================================ */
+.pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    row-gap: .75rem;
+}
+
+.pipe-step {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .75rem 1.25rem;
+    font-size: .85rem;
+    font-weight: 500;
+}
+
+.pipe-step .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+}
+
+.pipe-arrow {
+    color: var(--green);
+    font-size: 1.1rem;
+    padding: 0 .5rem;
+    opacity: .6;
+}
+
+/* ============================================================
+   STATS GRID (dashboard)
+   ============================================================ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    transition: background .2s, transform .2s;
+}
+
+.stat-card:hover {
+    background: var(--card-hover);
+    transform: translateY(-2px);
+}
+
+.stat-label {
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.stat-value {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    letter-spacing: -.03em;
+    color: var(--green);
+}
+
+.stat-sub {
+    font-size: .8rem;
+    color: var(--muted);
+}
+
+/* ============================================================
+   CHARTS GRID (dashboard)
+   ============================================================ */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.chart-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    overflow: hidden;
+}
+
+.chart-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -.02em;
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.chart-card img {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+}
+
+/* ============================================================
+   MAP (dashboard)
+   ============================================================ */
+.map-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.map-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -.02em;
+    padding: 1.5rem 1.5rem .75rem;
+    color: var(--text);
+}
+
+.map-card iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+    display: block;
+}
+
+.map-unavailable {
+    padding: 3rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: .9rem;
+}
+
+/* ============================================================
+   TABLE (stations)
+   ============================================================ */
+.table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--card);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table thead {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+table th {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 1rem 1.25rem;
+    text-align: left;
+    white-space: nowrap;
+}
+
+table td {
+    font-size: .875rem;
+    padding: .9rem 1.25rem;
+    border-bottom: 1px solid rgba(0, 201, 107, .06);
+    color: var(--text);
+    transition: background .15s;
+}
+
+table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+table tbody tr:hover td {
+    background: rgba(0, 201, 107, .04);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    font-size: .75rem;
+    font-weight: 500;
+    padding: .25rem .65rem;
+    border-radius: 100px;
+    background: rgba(0, 201, 107, .1);
+    color: var(--green);
+    border: 1px solid var(--border);
+}
+
+/* ============================================================
+   PAGE HEADER (stations / dashboard)
+   ============================================================ */
+.page-header {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 7rem 3rem 2rem;
+}
+
+.page-header h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: -.04em;
+    margin-bottom: .75rem;
+}
+
+.page-header h1 span { color: var(--green); }
+
+.page-header p {
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 300;
+}
+
+/* ============================================================
+   SEARCH BAR (stations)
+   ============================================================ */
+.search-bar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 240px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .75rem 1.25rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .9rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.search-input::placeholder { color: var(--muted); }
+
+.search-input:focus {
+    border-color: rgba(0, 201, 107, .5);
+    box-shadow: 0 0 0 3px rgba(0, 201, 107, .08);
+}
+
+.search-count {
+    font-size: .8rem;
+    font-weight: 500;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+/* ── Value states in table ── */
+.value-ok   { color: var(--green); font-weight: 500; }
+.value-zero { color: #ff6b6b;      font-weight: 500; }
+
+.station-name { font-weight: 500; }
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5rem 2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    gap: .75rem;
+}
+
+.empty-icon  { font-size: 3rem; margin-bottom: .5rem; }
+
+.empty-state h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.empty-state p {
+    font-size: .9rem;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 2rem 3rem;
+    font-size: .8rem;
+    color: var(--muted);
+}
+
+.footer span { color: var(--green); }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: .3; }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    .navbar  { padding: 0 1.5rem; }
+    .hero    { padding: 7rem 1.5rem 3rem; }
+    .section { padding: 3rem 1.5rem 4rem; }
+    .page-header { padding: 6rem 1.5rem 1.5rem; }
+    .footer  { padding: 1.5rem; }
+    .pipeline { gap: .5rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+    .hero h1 { font-size: 2.5rem; }
+    .hero-cta { flex-direction: column; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .nav-links a { padding: .4rem .6rem; font-size: .75rem; }
+}

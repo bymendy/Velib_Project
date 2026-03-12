@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stations — Vélib Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="navbar">
+        <a class="nav-logo" href="{{ url_for('index') }}">
+            🚲 <span>Vélib</span>Dashboard
+        </a>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">Accueil</a></li>
+            <li><a href="{{ url_for('stations') }}" class="active">Stations</a></li>
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <p class="section-label">Données en temps réel</p>
+        <h1>Toutes les <span>stations</span></h1>
+        <p>
+            {% if total_stations > 0 %}
+                {{ total_stations }} stations répertoriées sur le réseau Vélib' Métropole
+            {% else %}
+                Aucune donnée disponible pour le moment
+            {% endif %}
+        </p>
+    </div>
+
+    <!-- MAIN -->
+    <main class="section" style="padding-top: 1rem;">
+
+        {% if stations %}
+
+        <!-- SEARCH BAR -->
+        <div class="search-bar-wrapper">
+            <input
+                type="text"
+                id="searchInput"
+                class="search-input"
+                placeholder="🔍  Rechercher une station..."
+                onkeyup="filterTable()"
+            >
+            <span class="search-count" id="searchCount">{{ total_stations }} stations</span>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-wrapper">
+            <table id="stationsTable">
+                <thead>
+                    <tr>
+                        <th>Station</th>
+                        <th>ID</th>
+                        <th>🚲 Total</th>
+                        <th>⚙️ Méca.</th>
+                        <th>⚡ Élec.</th>
+                        <th>📦 Capacité</th>
+                        <th>🔌 Bornettes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for station in stations %}
+                    <tr>
+                        <td class="station-name">{{ station.station_name }}</td>
+                        <td><span class="badge">{{ station.station_id }}</span></td>
+                        <td>
+                            <span class="{% if station.total_bikes_available == 0 %}value-zero{% else %}value-ok{% endif %}">
+                                {{ station.total_bikes_available }}
+                            </span>
+                        </td>
+                        <td>{{ station.mechanical_bikes }}</td>
+                        <td>{{ station.electric_bikes }}</td>
+                        <td>{{ station.capacity }}</td>
+                        <td>
+                            <span class="{% if station.available_docks == 0 %}value-zero{% else %}value-ok{% endif %}">
+                                {{ station.available_docks }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+
+        <!-- EMPTY STATE -->
+        <div class="empty-state">
+            <div class="empty-icon">📭</div>
+            <h3>Aucune donnée disponible</h3>
+            <p>Le fichier CSV des stations est introuvable ou vide.<br>Lancez le pipeline de collecte pour générer les données.</p>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary" style="margin-top:1.5rem;">Retour à l'accueil</a>
+        </div>
+
+        {% endif %}
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        Projet <span>Vélib Dashboard</span> · Données issues de l'API Vélib Métropole · Paris
+    </footer>
+
+    <script>
+        function filterTable() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const rows  = document.querySelectorAll('#stationsTable tbody tr');
+            let visible = 0;
+
+            rows.forEach(row => {
+                const name = row.querySelector('.station-name').textContent.toLowerCase();
+                if (name.includes(input)) {
+                    row.style.display = '';
+                    visible++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            document.getElementById('searchCount').textContent =
+                visible + ' station' + (visible > 1 ? 's' : '');
+        }
+    </script>
+
+</body>
+</html>

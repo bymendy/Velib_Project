@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil — Vélib Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="navbar">
+        <a class="nav-logo" href="{{ url_for('index') }}">
+            🚲 <span>Vélib</span>Dashboard
+        </a>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}" class="active">Accueil</a></li>
+            <li><a href="{{ url_for('stations') }}">Stations</a></li>
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-tag">Données en temps réel · Paris</div>
+        <h1>Visualisez<br>les données<br><em>Vélib'</em></h1>
+        <p>
+            Explorez les stations parisiennes en temps réel — disponibilités,
+            capacités, répartition mécanique/électrique et carte interactive.
+        </p>
+        <div class="hero-cta">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Voir le Dashboard →</a>
+            <a href="{{ url_for('stations') }}" class="btn btn-secondary">Toutes les stations</a>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section">
+        <p class="section-label">Ce que vous trouverez</p>
+        <h2 class="section-title">Trois vues, une seule donnée</h2>
+        <div class="features-grid">
+            <a href="{{ url_for('index') }}" class="feature-card">
+                <div class="feature-icon">🏠</div>
+                <h3>Accueil</h3>
+                <p>Présentation du projet, pipeline de données et accès rapide aux différentes vues.</p>
+                <span class="feature-link">Vous êtes ici</span>
+            </a>
+            <a href="{{ url_for('stations') }}" class="feature-card">
+                <div class="feature-icon">📍</div>
+                <h3>Stations</h3>
+                <p>Tableau complet de toutes les stations avec leur nom, vélos disponibles et capacité totale.</p>
+                <span class="feature-link">Explorer</span>
+            </a>
+            <a href="{{ url_for('dashboard') }}" class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Dashboard</h3>
+                <p>Statistiques globales, graphiques d'analyse et carte interactive Folium de Paris.</p>
+                <span class="feature-link">Ouvrir</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- PIPELINE -->
+    <section class="section" style="padding-top:0">
+        <p class="section-label">Architecture</p>
+        <h2 class="section-title">Pipeline de données</h2>
+        <div class="pipeline">
+            <div class="pipe-step"><span class="dot"></span>API Vélib</div>
+            <span class="pipe-arrow">→</span>
+            <div class="pipe-step"><span class="dot"></span>Nettoyage</div>
+            <span class="pipe-arrow">→</span>
+            <div class="pipe-step"><span class="dot"></span>CSV / Historique</div>
+            <span class="pipe-arrow">→</span>
+            <div class="pipe-step"><span class="dot"></span>Graphiques</div>
+            <span class="pipe-arrow">→</span>
+            <div class="pipe-step"><span class="dot"></span>Interface Flask</div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        Projet <span>Vélib Dashboard</span> · Données issues de l'API Vélib Métropole · Paris
+    </footer>
+
+</body>
+</html>

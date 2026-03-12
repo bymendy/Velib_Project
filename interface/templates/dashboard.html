@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Vélib Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="navbar">
+        <a class="nav-logo" href="{{ url_for('index') }}">
+            🚲 <span>Vélib</span>Dashboard
+        </a>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">Accueil</a></li>
+            <li><a href="{{ url_for('stations') }}">Stations</a></li>
+            <li><a href="{{ url_for('dashboard') }}" class="active">Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <p class="section-label">Vue globale · Temps réel</p>
+        <h1><span>Dashboard</span> Vélib'</h1>
+        <p>Statistiques globales, graphiques d'analyse et carte interactive des stations parisiennes.</p>
+    </div>
+
+    <!-- MAIN -->
+    <main class="section" style="padding-top: 1rem;">
+
+        <!-- STATS -->
+        <p class="section-label" style="margin-bottom:.75rem;">Statistiques globales</p>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">Stations</span>
+                <span class="stat-value">{{ stats.total_stations }}</span>
+                <span class="stat-sub">sur le réseau</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Vélos disponibles</span>
+                <span class="stat-value">{{ stats.total_bikes }}</span>
+                <span class="stat-sub">en ce moment</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Bornettes libres</span>
+                <span class="stat-value">{{ stats.total_docks }}</span>
+                <span class="stat-sub">pour déposer</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Mécaniques</span>
+                <span class="stat-value">{{ stats.total_mechanical }}</span>
+                <span class="stat-sub">vélos </span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Électriques</span>
+                <span class="stat-value">{{ stats.total_electric }}</span>
+                <span class="stat-sub">vélos </span>
+            </div>
+        </div>
+
+        <!-- CHARTS -->
+        <p class="section-label" style="margin: 2.5rem 0 .75rem;">Graphiques d'analyse</p>
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>Répartition des vélos</h3>
+                <img src="{{ url_for('static', filename='images/bikes_distribution.png') }}"
+                     alt="Répartition des vélos">
+            </div>
+            <div class="chart-card">
+                <h3>Capacité des stations</h3>
+                <img src="{{ url_for('static', filename='images/station_capacity.png') }}"
+                     alt="Capacité des stations">
+            </div>
+            <div class="chart-card" style="grid-column: 1 / -1;">
+                <h3>Évolution du nombre de vélos</h3>
+                <img src="{{ url_for('static', filename='images/station_bikes_over_time.png') }}"
+                     alt="Évolution des vélos">
+            </div>
+        </div>
+
+        <!-- MAP -->
+        <p class="section-label" style="margin: 2.5rem 0 .75rem;">Carte interactive</p>
+        <div class="map-card">
+            <h3> Stations Vélib' — Paris</h3>
+            {% if map_available %}
+            <iframe src="{{ url_for('static', filename='images/stations_map.html') }}"
+                    title="Carte interactive des stations Vélib'">
+            </iframe>
+            {% else %}
+            <div class="map-unavailable">
+                <p>🗺️ La carte interactive n'est pas encore disponible.</p>
+                <p style="margin-top:.5rem; font-size:.8rem;">Lancez <code>run_visualization.py</code> pour générer la carte.</p>
+            </div>
+            {% endif %}
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        Projet <span>Vélib Dashboard</span> · Données issues de l'API Vélib Métropole · Paris
+    </footer>
+
+</body>
+</html>
