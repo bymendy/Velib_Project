@@ -15,7 +15,15 @@
         <a class="nav-logo" href="{{ url_for('index') }}">
             🚲 <span>Vélib</span>Dashboard
         </a>
-        <ul class="nav-links">
+
+        <!-- Hamburger button (mobile/tablet only) -->
+        <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
             <li><a href="{{ url_for('index') }}" class="active">Accueil</a></li>
             <li><a href="{{ url_for('stations') }}">Stations</a></li>
             <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
@@ -83,6 +91,26 @@
     <footer class="footer">
         Projet <span>Vélib Dashboard</span> · Données issues de l'API Vélib Métropole · Paris
     </footer>
+
+    <script>
+        const toggle = document.getElementById('navToggle');
+        const links  = document.getElementById('navLinks');
+
+        toggle.addEventListener('click', () => {
+            const isOpen = links.classList.toggle('open');
+            toggle.classList.toggle('open', isOpen);
+            toggle.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Ferme le menu quand on clique sur un lien
+        links.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                links.classList.remove('open');
+                toggle.classList.remove('open');
+                toggle.setAttribute('aria-expanded', false);
+            });
+        });
+    </script>
 
 </body>
 </html>
